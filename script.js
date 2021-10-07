@@ -30,7 +30,20 @@ var beweegAlles = function () {
   // kogel
 
   // speler
+  if (keyIsDown(39)) {  // key 39 = arrow_right
+    spelerX = spelerX + 10;
+  }
+  if (keyIsDown(37)){ // key 37 = arrow_left
+    spelerX = spelerX - 10;
+  }
+  if (keyIsDown(38)){ // key 38 = arrow up
+    spelerY = spelerY - 10;
+  }
+  if (keyIsDown(40)){ // key 40 = arrow down
+    spelerY = spelerY + 10;
+  }
 
+  
 };
 
 /**
@@ -50,19 +63,25 @@ var verwerkBotsing = function () {
  */
 var tekenAlles = function () {
   // achtergrond
-
+  fill("purple");
+rect(0,0,1280,720);
   // vijand
 
   // kogel
 
   // speler
-  fill("white");
-  rect(spelerX - 25, spelerY - 25, 50,50)
+  fill(115, 191, 94);
+  rect(spelerX - 25, spelerY - 25, 50, 50);
+  rect(spelerX - 20, spelerY + 25, 40, 50);
+  rect(spelerX - 60, spelerY + 25, 40, 15);
+  rect(spelerX + 20, spelerY + 25, 40, 15);
+  rect(spelerX - 20, spelerY + 75, 15, 40);
+  rect(spelerX + 7, spelerY + 75, 15, 40);
   fill("black");
   ellipse(spelerX, spelerY, 10, 10);
-  
-  
-  
+
+
+
 
   // punten en health
 
