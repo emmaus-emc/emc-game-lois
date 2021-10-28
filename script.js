@@ -66,8 +66,15 @@ if (spelerY >=600){
 if (spelerY <=15){
   spelerY = 15;
 }
-  // botsing kogel tegen vijand
 
+if ((vijandX - spelerX) <  50 && 
+    (vijandX - spelerX) >  -50 && 
+    (vijandY - spelerY) <  50 &&
+    (vijandY - spelerY) > -50 ) {
+// botsing kogel tegen vijand
+console.log("botsing");
+    }
+  
 
 if (vijandY >=720){
   vijandY = 0;
@@ -80,7 +87,7 @@ if (vijandY >=720){
  */
 var tekenAlles = function () {
   // achtergrond
-  fill("green");
+  fill("pink");
 rect(0,0,1280,720);
   // vijand
   fill(77,51,16);
