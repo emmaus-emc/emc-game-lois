@@ -21,6 +21,11 @@ var spelerX = 600; // x-positie van speler
 var spelerY = 600; // y-positie van speler
 var vijandX = 500; // x-positie van vijand
 var vijandY = 500; // y-positie van vijand
+var vijandX2 = 400;
+var vijandY2 = 500;
+var vijandX3 = 300;
+var vijandY3 = 500;
+
 
 /* ********************************************* */
 /* functies die je gebruikt in je game           */
@@ -32,6 +37,9 @@ var vijandY = 500; // y-positie van vijand
 var beweegAlles = function () {
   // vijand
   vijandY = vijandY + 10;
+  vijandY2 = vijandY2 + 10;
+  vijandY3 = vijandY3 + 10;
+
   // kogel
 
   // speler
@@ -72,10 +80,18 @@ var verwerkBotsing = function () {
   }
 
 
-  if ((vijandX - spelerX) < 50 &&
+  if  ((vijandX - spelerX) < 50 &&
     (vijandX - spelerX) > -50 &&
     (vijandY - spelerY) < 50 &&
-    (vijandY - spelerY) > -50) {
+    (vijandY - spelerY) > -50 || 
+    (vijandX2 - spelerX) < 50 &&
+    (vijandX2 - spelerX) > -50 &&
+    (vijandY2 - spelerY) < 50 &&
+    (vijandY2 - spelerY) > -50 || 
+    (vijandX3 - spelerX) < 50 &&
+    (vijandX3 - spelerX) > -50 &&
+    (vijandY3 - spelerY) < 50 &&
+    (vijandY3 - spelerY) > -50) {
     health = health - 1;
     spelerX = 1200;
     // botsing kogel tegen vijand
@@ -87,7 +103,14 @@ var verwerkBotsing = function () {
     vijandY = 0;
     vijandX = random(0, 1280);
   }
-
+  if (vijandY2 >= 720) {
+    vijandY2 = 0;
+    vijandX2 = random(0, 1280);
+  }
+    if (vijandY3 >= 720) {
+    vijandY3 = 0;
+    vijandX3 = random(0, 1280);
+  }
 
 };
 
@@ -100,7 +123,9 @@ var tekenAlles = function () {
   rect(0, 0, 1280, 720);
   // vijand
   fill(77, 51, 16);
-  ellipse(vijandX, vijandY, 50, 50)
+  ellipse(vijandX, vijandY, 50, 50);
+    ellipse(vijandX2, vijandY2, 50, 50);
+    ellipse(vijandX3, vijandY3, 50, 50);
   // kogel
 
   // speler
@@ -113,6 +138,8 @@ var tekenAlles = function () {
   rect(spelerX + 7, spelerY + 75, 15, 40);
   fill("black");
   ellipse(spelerX, spelerY, 10, 10);
+  
+
 
 
 
@@ -171,7 +198,7 @@ function draw() {
   if (spelStatus === GAMEOVER) {
     // teken game-over scherm
   textSize(100); 
-  text("game over", 350, 200);
+  text("game over ", 350, 200);
   text(score,900, 200);
   }
 }
