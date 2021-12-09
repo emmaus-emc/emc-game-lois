@@ -19,11 +19,11 @@ var score = 0;
 
 var spelerX = 600; // x-positie van speler
 var spelerY = 600; // y-positie van speler
-var vijandX = 500; // x-positie van vijand
+var vijandX = 300; // x-positie van vijand
 var vijandY = 500; // y-positie van vijand
 var vijandX2 = 400;
 var vijandY2 = 500;
-var vijandX3 = 300;
+var vijandX3 = 500;
 var vijandY3 = 500;
 
 
@@ -79,37 +79,28 @@ var verwerkBotsing = function () {
     spelerY = 15;
   }
 
+for (var i = 0; i<8; i++ ) {
 
-  if  ((vijandX - spelerX) < 50 &&
-    (vijandX - spelerX) > -50 &&
+  if  ((vijandX + i * 100- spelerX) < 50 &&
+    (vijandX + i * 100- spelerX) > -50 &&
     (vijandY - spelerY) < 50 &&
-    (vijandY - spelerY) > -50 || 
-    (vijandX2 - spelerX) < 50 &&
-    (vijandX2 - spelerX) > -50 &&
-    (vijandY2 - spelerY) < 50 &&
-    (vijandY2 - spelerY) > -50 || 
-    (vijandX3 - spelerX) < 50 &&
-    (vijandX3 - spelerX) > -50 &&
-    (vijandY3 - spelerY) < 50 &&
-    (vijandY3 - spelerY) > -50) {
+    (vijandY - spelerY) > -50) 
+  
+     {
     health = health - 1;
     spelerX = 1200;
-    // botsing kogel tegen vijand
     console.log("botsing");
   }
-
+}
 
   if (vijandY >= 720) {
     vijandY = 0;
-    vijandX = random(0, 1280);
   }
   if (vijandY2 >= 720) {
     vijandY2 = 0;
-    vijandX2 = random(0, 1280);
   }
     if (vijandY3 >= 720) {
     vijandY3 = 0;
-    vijandX3 = random(0, 1280);
   }
 
 };
@@ -123,9 +114,10 @@ var tekenAlles = function () {
   rect(0, 0, 1280, 720);
   // vijand
   fill(77, 51, 16);
-  ellipse(vijandX, vijandY, 50, 50);
-    ellipse(vijandX2, vijandY2, 50, 50);
-    ellipse(vijandX3, vijandY3, 50, 50);
+
+for (var i=0;i<8; i=i+1) { 
+  ellipse(vijandX+i*100, vijandY, 50, 50);
+}
   // kogel
 
   // speler
@@ -140,19 +132,12 @@ var tekenAlles = function () {
   ellipse(spelerX, spelerY, 10, 10);
   
 
-
-
-
-
-
   // punten en health
   textSize(60);
   text(health, 20, 50);
   text(score, 1170, 50);
   score = floor(punten);
   punten = punten + 1 / 50;
-
-
 
 };
 
