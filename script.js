@@ -1,4 +1,4 @@
-/* Game opdracht
+ /* Game opdracht
    Informatica - Emmauscollege Rotterdam
    Template voor een game in JavaScript met de p5 library
 
@@ -25,8 +25,11 @@ var vijandX2 = 400;
 var vijandY2 = 500;
 var vijandX3 = 500;
 var vijandY3 = 500;
+var vijandXlijst = [400, 500, 600, 700, 800, 900, 1000, 300];
+var vijandYlijst = [25,26,27,28,29,30,31,32,33];
 
-
+var kogelY = 300;
+var kogelX = 600;
 /* ********************************************* */
 /* functies die je gebruikt in je game           */
 /* ********************************************* */
@@ -41,7 +44,12 @@ var beweegAlles = function () {
   vijandY3 = vijandY3 + 10;
 
   // kogel
+  if (keyIsDown(32)){
+    kogelX = spelerX; 
+    kogelY = spelerY - 40;
 
+  }
+  kogelY = kogelY - 10;
   // speler
   if (keyIsDown(39)) {  // key 39 = arrow_right
     spelerX = spelerX + 10;
@@ -78,31 +86,39 @@ var verwerkBotsing = function () {
   if (spelerY <= 15) {
     spelerY = 15;
   }
+    for (var i = 0; i < 8; i++){
+      if ((vijandXlijst [i]- kogelX) < 30 &&
+      (vijandXlijst [i] - kogelX) > -30 &&
+      (vijandYlijst[i] - kogelY) < 30 &&
+      (vijandYlijst[i] - kogelY) > -30) {
+      kogelX = 1400; 
+      vijandYlijst[i] = -999999999;
+      console.log("hit");
+      }
+    }
+  for (var i = 0; i < 8; i++) {
 
-for (var i = 0; i<8; i++ ) {
-
-  if  ((vijandX + i * 100- spelerX) < 50 &&
-    (vijandX + i * 100- spelerX) > -50 &&
-    (vijandY - spelerY) < 50 &&
-    (vijandY - spelerY) > -50) 
-  
-     {
-    health = health - 1;
-    spelerX = 1200;
-    console.log("botsing");
-  }
-}
-
-  if (vijandY >= 720) {
-    vijandY = 0;
-  }
-  if (vijandY2 >= 720) {
-    vijandY2 = 0;
-  }
-    if (vijandY3 >= 720) {
-    vijandY3 = 0;
+    if ((vijandXlijst [i]- spelerX) < 50 &&
+      (vijandXlijst [i] - spelerX) > -50 &&
+      (vijandYlijst[i] - spelerY) < 50 &&
+      (vijandYlijst[i] - spelerY) > -50) {
+      health = health - 1;
+      spelerX = 1200;
+      console.log("botsing");
+    }
   }
 
+  //if (vijandY >= 720) {
+    //vijandY = 0;
+  //}
+  for (var i = 0; i < 8; i++){
+    vijandYlijst [i] = vijandYlijst [i] + 10;
+    if (vijandYlijst [i] > 720 ){
+      vijandYlijst [i] = 25;
+    }
+  }
+
+   
 };
 
 /**
@@ -115,10 +131,11 @@ var tekenAlles = function () {
   // vijand
   fill(77, 51, 16);
 
-for (var i=0;i<8; i=i+1) { 
-  ellipse(vijandX+i*100, vijandY, 50, 50);
-}
+  for (var i = 0; i < 8; i = i + 1) {
+    ellipse(vijandXlijst[i], vijandYlijst[i], 50, 50);
+  }
   // kogel
+  rect(kogelX,kogelY,10,10);
 
   // speler
   fill(115, 191, 94);
@@ -130,7 +147,7 @@ for (var i=0;i<8; i=i+1) {
   rect(spelerX + 7, spelerY + 75, 15, 40);
   fill("black");
   ellipse(spelerX, spelerY, 10, 10);
-  
+
 
   // punten en health
   textSize(60);
@@ -182,8 +199,8 @@ function draw() {
   }
   if (spelStatus === GAMEOVER) {
     // teken game-over scherm
-  textSize(100); 
-  text("game over ", 350, 200);
-  text(score,900, 200);
+    textSize(100);
+    text("game over ", 350, 200);
+    text(score, 900, 200);
   }
 }
